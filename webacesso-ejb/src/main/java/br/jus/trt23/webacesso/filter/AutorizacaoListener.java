@@ -13,9 +13,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
+import javax.inject.Inject;
 
 @Model
 public class AutorizacaoListener implements PhaseListener {
+    @Inject 
+    UsuarioSessao usuarioSessao;
 
     @Override
     public void afterPhase(PhaseEvent event) {
@@ -24,8 +27,6 @@ public class AutorizacaoListener implements PhaseListener {
         boolean paginaSemPermissao = (currentPage.lastIndexOf("index.xhtml") > -1) || (currentPage.lastIndexOf("menu.xhtml") > -1)
                 || (currentPage.lastIndexOf("selecionarPerfil.xhtml") > -1) || (currentPage.lastIndexOf("erro.xhtml") > -1) || (currentPage.lastIndexOf("sessaoExpirada.xhtml") > -1);
         boolean paginaLogin = (currentPage.lastIndexOf("index.xhtml") > -1);
-
-        UsuarioSessao usuarioSessao = facesContext.getApplication().evaluateExpressionGet(facesContext, "#{usuarioSessao}", UsuarioSessao.class);
 
         if (paginaLogin) {
             // Página de login

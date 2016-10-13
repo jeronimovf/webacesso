@@ -16,26 +16,27 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
-import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.inject.Model;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
+import lombok.Getter;
+import lombok.Setter;
 
-@Named
-@ConversationScoped
+@Model
 public class AutenticacaoController implements Serializable {
-    @Inject
-    Conversation conversation;
-    
     private static final long serialVersionUID = 1L;
-
-    private String login;
-    private String senha;
-
+    
     @Inject
     private UsuarioIntegracaoController usuarioIntegracaoController;
+
+    @Getter
+    @Setter
+    private String login;
+    @Getter
+    @Setter
+    private String senha;
 
     @Inject
     private AcessoIntegracaoFacade acessoIntegracaoFacade;
@@ -64,6 +65,7 @@ public class AutenticacaoController implements Serializable {
         }
     }
 
+    @Transactional
     public void autenticar() throws IOException {
         boolean autenticado;
         if (usuarioSessao.getLogin() != null && !usuarioSessao.getLogin().equals("")) {
@@ -111,7 +113,6 @@ public class AutenticacaoController implements Serializable {
         } else {
             MensagemUtil.warning("Usuário ou senha inválidos.");
         }
-        conversation.end();
     }
 
     private String getUsuarioCAS() {
@@ -136,19 +137,9 @@ public class AutenticacaoController implements Serializable {
         senha = null;
     }
 
-    public String getLogin() {
-        return login;
-    }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public AutenticacaoController() {
     }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
+    
+    
 }

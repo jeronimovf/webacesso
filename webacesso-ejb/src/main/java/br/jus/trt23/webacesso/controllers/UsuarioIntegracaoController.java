@@ -3,19 +3,28 @@ package br.jus.trt23.webacesso.controllers;
 import br.jus.trt23.nucleo.enums.TipoSimNao;
 import br.jus.trt23.webacesso.entities.Unidade;
 import br.jus.trt23.webacesso.entities.Usuario;
+import static br.jus.trt23.webacesso.enums.TipoMagistrado.D;
+import static br.jus.trt23.webacesso.enums.TipoMagistrado.T;
 import br.jus.trt23.webacesso.enums.TipoServidor;
 import br.jus.trt23.webacesso.sessions.UsuarioIntegracaoFacade;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.enterprise.inject.Model;
+import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
+import javax.inject.Named;
 
-@Model
-public class UsuarioIntegracaoController implements Serializable{
+@Named
+@Dependent
+public class UsuarioIntegracaoController implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Inject
-    private UsuarioIntegracaoFacade usuarioIntegracaoFacade;
+    UsuarioIntegracaoFacade usuarioIntegracaoFacade;
+
+    public UsuarioIntegracaoController() {
+    }
 
     public Usuario buscarUsuario(final String login) {
         return usuarioIntegracaoFacade.buscarUsuario(login);

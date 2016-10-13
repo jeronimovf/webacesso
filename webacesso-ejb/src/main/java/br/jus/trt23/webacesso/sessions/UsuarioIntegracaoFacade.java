@@ -86,6 +86,7 @@ public class UsuarioIntegracaoFacade extends AbstractFacade<Usuario>{
         return getEntityManager().createQuery(cq).getResultList();
     }
 
+    @Override
     public List<Usuario> findAll() {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Usuario> cq = cb.createQuery(Usuario.class);

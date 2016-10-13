@@ -36,9 +36,8 @@ public class SelecionarPerfilController implements Serializable {
     private AcessoIntegracaoFacade acessoFacade;
 
     @Inject
-    private UsuarioIntegracaoController usuarioIntegracaoFacade;
-
-
+    private UsuarioIntegracaoController usuarioIntegracaoController;
+    
     @Inject
     private FuncionalidadeFacade funcionalidadeFacade;
 
@@ -58,10 +57,10 @@ public class SelecionarPerfilController implements Serializable {
 
     @PostConstruct
     public void init() {
-        Usuario usuario = usuarioIntegracaoFacade.buscarUsuario(usuarioSessao.getLogin());
+        Usuario usuario = usuarioIntegracaoController.buscarUsuario(usuarioSessao.getLogin());
         Sistema sistema = new Sistema(configuracaoAplicacao.getCodigoSistema());
 
-        List<Usuario> listaUsuario = usuarioIntegracaoFacade.obterListaUsuarioSistema(usuario);
+        List<Usuario> listaUsuario = usuarioIntegracaoController.obterListaUsuarioSistema(usuario);
         listaAcesso = acessoFacade.listarAcessos(sistema, listaUsuario);
 
         // VERIFICAR SE ESTE USUÁRIO POSSUÍ DELEGAÇÃO DE COMPETÊNCIA.
