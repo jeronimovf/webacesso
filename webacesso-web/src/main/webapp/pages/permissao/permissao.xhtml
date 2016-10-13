@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/template/crud.xhtml">
+		<ui:param name="action" value="#{permissaoAction}"/>
+		<ui:param name="titulo" value="Cadastro de Permissão"/>
+		<ui:define name="pesquisa">
+			<p:panelGrid id="idGridPesquisa">	 				   		    					
+				<p:row>
+			    	<p:column style="text-align: right;">    					
+	       				<p:outputLabel value="Usuário:" for="autoUsuario"/> 
+			    	</p:column>
+			    	<p:column>
+			    		<p:autoComplete id="autoUsuario" minQueryLength="2" value="#{permissaoAction.usuarioSelecionado}" var="usu" size="60"
+        					itemLabel="#{usu.loginNome}" itemValue="#{usu}" converter="entidadeConverter"
+        					completeMethod="#{permissaoAction.autoCompleteUsuario}" effect="fade" />
+			    	</p:column>
+				</p:row>
+		    	<p:row>
+			    	<p:column style="text-align: right;">    					
+	       				<p:outputLabel value="Sistema:"/> 
+			    	</p:column>
+			    	<p:column>
+			    		<p:selectOneMenu value="#{permissaoAction.sistemaSelecionado}" converter="entidadeConverter" style="width: 100%;">
+			    			<f:ajax event="change" execute="#{permissaoAction.carregarPerfil()}" render="idGridPesquisa" immediate="true"/>
+			    			<f:selectItem itemLabel=" --- Selecione --- "/>
+			    			<f:selectItems value="#{permissaoAction.listaSistema}" var="sis" itemLabel="#{sis.descricao}" itemValue="#{sis}" />
+			    		</p:selectOneMenu>			    	
+			    	</p:column>
+			    </p:row>
+			    <p:row rendered="#{permissaoAction.listaPerfil ne null and permissaoAction.listaPerfil.size() > 0}">
+			    	<p:column style="text-align: right;">    					
+	       				<p:outputLabel value="Perfil:"/> 
+			    	</p:column>
+			    	<p:column>
+			    		<p:selectOneMenu value="#{permissaoAction.perfilSelecionado}" converter="entidadeConverter" style="width: 100%;">
+			    			<f:selectItem itemLabel=" --- Selecione --- "/>
+			    			<f:selectItems value="#{permissaoAction.listaPerfil}" var="per" itemLabel="#{per.descricao}" itemValue="#{per}" />
+			    		</p:selectOneMenu>			    	
+			    	</p:column>
+			    </p:row>			    
+			</p:panelGrid>
+		</ui:define>
+		<ui:define name="listagem">
+			 <p:dataTable value="#{permissaoAction.lista}" var="permissao" paginator="true" rows="10"
+              					  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">	                        
+                    <f:facet name="header">Registros</f:facet>
+                    <p:column width="9%">
+				        <f:facet name="header"><p:outputLabel value="Login"/></f:facet>
+				        <p:outputLabel value="#{permissao.usuario.login}"/>
+				    </p:column>
+				    <p:column width="25%">
+				        <f:facet name="header"><p:outputLabel value="Nome"/></f:facet>
+				        <p:outputLabel value="#{permissao.usuario.nome}"/>
+				    </p:column>
+				    <p:column width="12%">
+				        <f:facet name="header"><p:outputLabel value="Sistema"/></f:facet>
+				        <p:outputLabel value="#{permissao.perfil.sistema.descricao}"/>
+				    </p:column>
+				    <p:column width="20%">
+				        <f:facet name="header"><p:outputLabel value="Perfil"/></f:facet>
+				        <p:outputLabel value="#{permissao.perfil.descricao}"/>
+				    </p:column>
+				    <p:column width="15%">
+				        <f:facet name="header"><p:outputLabel value="Unidade"/></f:facet>
+				        <p:outputLabel value="#{permissao.unidade.sigla}" title="#{permissao.unidade.descricao}"/>
+				    </p:column>	    					    						 
+				    <p:column width="10%">
+				    	<f:facet name="header"><p:outputLabel value="Data Cadastro"/></f:facet>
+				        <p:outputLabel value="#{permissao.dataCadastro}"><f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Cuiaba"/></p:outputLabel>
+				    </p:column>
+				    <p:column width="9%" style="text-align: center;">
+				    	<f:facet name="header"><p:outputLabel value="Ação"/></f:facet>
+				        <p:commandButton actionListener="#{permissaoAction.editar(permissao)}" icon="ui-icon-pencil" update="@all" process="@all"/>
+				        <p:outputLabel value=" "/>
+				        <p:commandButton actionListener="#{permissaoAction.excluir(permissao)}" icon="ui-icon-close" update="@all" process="@all">
+					    	<p:confirm header="Confirmação" message="Excluir permissão?" icon="ui-icon-alert" />
+					    </p:commandButton>                        
+				    </p:column>
+                 	</p:dataTable>	                     		                     
+		</ui:define>
+		
+		<ui:define name="formulario">
+			<p:panelGrid id="idGridFormulario">
+			    <f:facet name="header">
+			    	<p:row><p:column colspan="2">Cadastro de Permissão</p:column></p:row>
+			    </f:facet>	
+
+			    <p:row>
+			    	<p:column style="text-align: right;">    					
+	       				<p:outputLabel value="Sistema:"/> 
+			    	</p:column>
+			    	<p:column>
+			    		<p:selectOneMenu value="#{permissaoAction.sistemaSelecionado}" converter="entidadeConverter" style="width: 300px;" required="true" requiredMessage="O campo 'Sistema' é obrigatório.">
+			    			<f:ajax event="change" execute="#{permissaoAction.carregarPerfil()}" render="idGridFormulario" immediate="true"/>
+			    			<f:selectItem itemLabel=" --- Selecione --- "/>
+			    			<f:selectItems value="#{permissaoAction.listaSistema}" var="sis" itemLabel="#{sis.descricao}" itemValue="#{sis}" />
+			    		</p:selectOneMenu>			    	
+			    	</p:column>
+				</p:row>		 				   		    	
+		    	
+		    	<p:row rendered="#{permissaoAction.listaPerfil ne null and permissaoAction.listaPerfil.size() > 0}">
+			    	<p:column style="text-align: right;">    					
+	       				<p:outputLabel value="Perfil:"/> 
+			    	</p:column>	
+			    	<p:column>
+			    		<p:selectOneMenu value="#{permissaoAction.permissao.perfil}" converter="entidadeConverter" style="width: 300px;" required="true" requiredMessage="O campo 'Perfil' é obrigatório.">
+			    			<f:selectItem itemLabel=" --- Selecione --- "/>
+			    			<f:selectItems value="#{permissaoAction.listaPerfil}" var="per" itemLabel="#{per.descricao}" itemValue="#{per}" />
+			    		</p:selectOneMenu>			    	
+			    	</p:column>		   			    	    			   
+				</p:row>
+				
+				<p:row rendered="#{permissaoAction.listaPerfil ne null and permissaoAction.listaPerfil.size() > 0}">
+					<p:column style="text-align: right;">    					
+	       				<p:outputLabel value="Usuário:"/> 
+			    	</p:column>
+			    	<p:column>
+			    		<p:autoComplete id="idAutoUsuario" minQueryLength="2" value="#{permissaoAction.permissao.usuario}" var="usu" size="60"
+        					itemLabel="#{usu.loginNome}" itemValue="#{usu}" converter="entidadeConverter" 
+        					completeMethod="#{permissaoAction.autoCompleteUsuario}" effect="fade" required="true" requiredMessage="O campo 'Usuário' é obrigatório.">
+        				</p:autoComplete>
+			    	</p:column>
+				</p:row>
+				
+				<p:row rendered="#{permissaoAction.listaPerfil ne null and permissaoAction.listaPerfil.size() > 0}">	
+					<p:column style="text-align: right;">    					
+	       				<p:outputLabel value="Unidade:"/> 
+			    	</p:column>
+					<p:column rendered="#{permissaoAction.permissao eq null or permissaoAction.permissao.id eq null}">
+				        <p:selectManyMenu value="#{permissaoAction.listaUnidadeSelecionada}" converter="entidadeConverter" style="width: 99%;"
+				                          filter="true" filterMatchMode="contains" showCheckbox="true">
+				            <f:selectItems value="#{permissaoAction.listaUnidade}" var="uni" itemLabel="#{uni.descricao}" itemValue="#{uni}" />				 
+				            <p:column>
+				                <h:outputText value="#{uni.descricao}" />
+				            </p:column>
+				        </p:selectManyMenu>				        
+					</p:column>
+					<p:column rendered="#{permissaoAction.permissao ne null and permissaoAction.permissao.id ne null}">
+						<p:outputLabel value="#{permissaoAction.permissao.unidade.descricao}"/>
+					</p:column>
+				</p:row>
+										
+			</p:panelGrid>	
+			<br/>
+		</ui:define>
+	        
+	</ui:composition>	    
+</html>

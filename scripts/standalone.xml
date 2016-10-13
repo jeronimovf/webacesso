@@ -1,0 +1,16 @@
+<datasource jta="true" jndi-name="java:jboss/webAcessoDS" pool-name="webAcessoDS" enabled="true" use-java-context="true" use-ccm="false">
+    <connection-url>jdbc:oracle:thin:@sede-orahomolog:1521/bdhomolog</connection-url>
+    <driver-class>oracle.jdbc.driver.OracleDriver</driver-class>
+    <driver>oracle</driver>
+    <pool>
+        <min-pool-size>1</min-pool-size>
+        <max-pool-size>10</max-pool-size>
+    </pool>
+    <security>
+        <user-name>webacesso</user-name>
+        <password>webacesso</password>
+    </security>
+    <validation>
+        <validate-on-match>true</validate-on-match>
+    </validation>
+</datasource>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence
+    xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://xmlns.jcp.org/xml/ns/persistence
+        http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+    version="2.1">
+    
+    <persistence-unit name="webAcessoPU" transaction-type="JTA">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <jta-data-source>java:jboss/webAcessoDS</jta-data-source>
+ 
+        <class>br.jus.trt23.webacesso.entity.Funcionalidade</class>
+        <class>br.jus.trt23.webacesso.entity.Perfil</class>
+        <class>br.jus.trt23.webacesso.entity.Permissao</class>
+        <class>br.jus.trt23.webacesso.entity.Recurso</class>
+        <class>br.jus.trt23.webacesso.entity.Sistema</class>
+        <class>br.jus.trt23.webacesso.entity.TipoUsuario</class>
+        <class>br.jus.trt23.webacesso.entity.UsuarioExterno</class>
+        <class>br.jus.trt23.webacesso.entity.UsuarioSistema</class>
+        <class>br.jus.trt23.webacesso.entity.integracao.Usuario</class>
+        <class>br.jus.trt23.webacesso.entity.integracao.Acesso</class>
+        <class>br.jus.trt23.webacesso.entity.integracao.Unidade</class>
+
+        <properties>         
+            <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="none" />
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="false" />
+        </properties>
+    </persistence-unit>
+</persistence>
