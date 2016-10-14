@@ -13,9 +13,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.security.Principal;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -46,17 +43,6 @@ public class AutenticacaoController implements Serializable {
 
     @Inject
     private ConfiguracaoAplicacao configuracaoAplicacao;
-
-    @PostConstruct
-    public void init() {
-        if (usuarioSessao != null && usuarioSessao.isUsuarioLogado()) {
-            try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("selecionarPerfil.xhtml");
-            } catch (IOException ex) {
-                Logger.getLogger(AutenticacaoController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
 
     public void autenticarCAS() throws IOException {
         usuarioSessao.setLogin(getUsuarioCAS());
@@ -103,7 +89,7 @@ public class AutenticacaoController implements Serializable {
                     if (usuario.getTipoMagistrado() != null) {
                         usuarioSessao.setTipoMagistrado(usuario.getTipoMagistrado());
                     }
-                    FacesContext.getCurrentInstance().getExternalContext().redirect("selecionarPerfil.xhtml");
+                    //FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
                 } else {
                     MensagemUtil.error("Usuário sem acesso a este sistema.");
                 }

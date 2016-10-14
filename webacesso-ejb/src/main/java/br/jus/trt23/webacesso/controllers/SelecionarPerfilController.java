@@ -19,11 +19,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -87,11 +84,6 @@ public class SelecionarPerfilController implements Serializable {
 
         if (listaAcesso != null && listaAcesso.size() == 1) {
             obterFuncionalidades(listaAcesso.get(0));
-            try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("menu.xhtml");
-            } catch (IOException ex) {
-                Logger.getLogger(SelecionarPerfilController.class.getName()).log(Level.SEVERE, null, ex);
-            }
         } else if (listaAcesso == null || listaAcesso.isEmpty()) {
             MensagemUtil.error("Usuário sem acesso a este sistema.");
         }
@@ -109,7 +101,6 @@ public class SelecionarPerfilController implements Serializable {
         List<Funcionalidade> listaFuncionalidade = funcionalidadeFacade.listarFuncionalidadeAcesso(acesso.getPerfil());
         if (listaFuncionalidade != null) {
             // Unidade
-            acessoFacade.edit(acesso);
             if (acesso.getUsuarioGestor() != null && acesso.getUsuarioGestor().getUnidade() != null) {
                 //por que precisa desse refresh
                 //unidadeIntegracaoFacade.refresh(acesso.getUsuarioGestor().getUnidade());

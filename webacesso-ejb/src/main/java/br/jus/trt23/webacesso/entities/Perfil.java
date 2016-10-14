@@ -54,11 +54,11 @@ public class Perfil extends EntidadeGenericaComId
 	private String usuarioExcluir;
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE )
-	@JoinTable(name = "PERFIL_FUNCIONALIDADE", joinColumns = {@JoinColumn(name = "FK_PERFIL") }, inverseJoinColumns = { @JoinColumn(name = "FK_FUNCIONALIDADE") })
+	@JoinTable(schema = Constantes.SCHEMA, name = "PERFIL_FUNCIONALIDADE", joinColumns = {@JoinColumn(name = "FK_PERFIL") }, inverseJoinColumns = { @JoinColumn(name = "FK_FUNCIONALIDADE") })
 	public Set<Funcionalidade> listaFuncionalidade; 
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE )
-	@JoinTable(name = "PERFIL_RECURSO", joinColumns = {@JoinColumn(name = "FK_PERFIL") }, inverseJoinColumns = { @JoinColumn(name = "FK_RECURSO") })
+	@JoinTable(schema = Constantes.SCHEMA,name = "PERFIL_RECURSO", joinColumns = {@JoinColumn(name = "FK_PERFIL") }, inverseJoinColumns = { @JoinColumn(name = "FK_RECURSO") })
 	public Set<Recurso> listaRecurso;
 
     @Override

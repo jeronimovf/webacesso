@@ -57,7 +57,7 @@ public class Funcionalidade extends EntidadeGenericaComId {
     private String usuarioExcluir;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "PERFIL_FUNCIONALIDADE", joinColumns = {
+    @JoinTable(schema = Constantes.SCHEMA, name = "PERFIL_FUNCIONALIDADE", joinColumns = {
         @JoinColumn(name = "FK_FUNCIONALIDADE")}, inverseJoinColumns = {
         @JoinColumn(name = "FK_PERFIL")})
     public Set<Perfil> listaPerfil;

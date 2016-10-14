@@ -15,23 +15,25 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="RECURSO",schema = Constantes.SCHEMA)
-@SequenceGenerator(name="ID", sequenceName = "SEQ_RECURSO", allocationSize = 1)
+@Table(name = "RECURSO", schema = Constantes.SCHEMA)
+@SequenceGenerator(name = "ID", sequenceName = "SEQ_RECURSO", allocationSize = 1)
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class Recurso extends EntidadeGenericaComId
-{
-	@JoinColumn(name="FK_FUNCIONALIDADE")
-	@ManyToOne(fetch=FetchType.LAZY)
-	private Funcionalidade funcionalidade;
-	
-	@Column(name="DESCRICAO")
-	private String descricao;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinTable(name = "PERFIL_RECURSO", joinColumns = {@JoinColumn(name = "FK_RECURSO") }, inverseJoinColumns = { @JoinColumn(name = "FK_PERFIL") })
-	public Perfil perfil;
+public class Recurso extends EntidadeGenericaComId {
+
+    @JoinColumn(name = "FK_FUNCIONALIDADE")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Funcionalidade funcionalidade;
+
+    @Column(name = "DESCRICAO")
+    private String descricao;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinTable(schema = Constantes.SCHEMA, name = "PERFIL_RECURSO", joinColumns = {
+        @JoinColumn(name = "FK_RECURSO")}, inverseJoinColumns = {
+        @JoinColumn(name = "FK_PERFIL")})
+    public Perfil perfil;
 
     @Override
     public String getNomeNatural() {
