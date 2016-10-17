@@ -55,7 +55,6 @@ public class FuncionalidadeFacade extends AbstractFacadeComId<Funcionalidade> {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
         Root<Funcionalidade> c = cq.from(Funcionalidade.class);
-        Join<Funcionalidade, FuncionalidadeUrl> u = c.join("listaUrl", JoinType.LEFT);
         Join<Funcionalidade, Perfil> p = c.join("listaPerfil", JoinType.LEFT);
         cq.select(c).where(
             cb.equal(p, perfil),

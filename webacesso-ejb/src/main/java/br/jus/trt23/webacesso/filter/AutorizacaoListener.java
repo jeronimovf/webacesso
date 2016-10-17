@@ -6,6 +6,8 @@ import br.jus.trt23.webacesso.entities.FuncionalidadeUrl;
 import br.jus.trt23.webacesso.entities.Recurso;
 import br.jus.trt23.webacesso.util.UsuarioSessao;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.enterprise.inject.Model;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.NavigationHandler;
@@ -17,7 +19,8 @@ import javax.inject.Inject;
 
 @Model
 public class AutorizacaoListener implements PhaseListener {
-    @Inject 
+
+    @Inject
     UsuarioSessao usuarioSessao;
 
     @Override
@@ -38,52 +41,57 @@ public class AutorizacaoListener implements PhaseListener {
             if (usuarioSessao.getListaFuncionalidades() != null) {
                 for (Funcionalidade funcionalidade : usuarioSessao.getListaFuncionalidades()) {
                     if (funcionalidade.getListaUrl() != null) {
-                        for (FuncionalidadeUrl funcinalidadeUrl : funcionalidade.getListaUrl()) {
-                            if (currentPage.equalsIgnoreCase("/" + funcinalidadeUrl.getViewId())) {
-                                hasPermission = true;
-                                System.out.println("Acesso permitido: " + currentPage + " | " + usuarioSessao.getLogin());
+                        Stream<FuncionalidadeUrl> sFUrl = funcionalidade.getListaUrl().stream();
+                        List<FuncionalidadeUrl> lFUrl = sFUrl.filter(f -> f.getViewId().equalsIgnoreCase("/".concat(currentPage))).collect(Collectors.toList());
+                        if (lFUrl.size() == 1) {
+                            hasPermission = true;
+                            System.out.println("Acesso permitido: " + currentPage + " | " + usuarioSessao.getLogin());
 
-                                if (funcinalidadeUrl.getPrincipalUrl() != null && funcinalidadeUrl.getPrincipalUrl().equals(TipoSimNao.S)) {
-                                    // Recursos Permitidos
-                                    usuarioSessao.carregar();
-                                    List<Recurso> listaRecursosPermitidos = usuarioSessao.getRecursosPermitidos(funcionalidade);
-                                    if (listaRecursosPermitidos != null) {
-                                        for (Recurso recurso : listaRecursosPermitidos) {
-                                            System.out.println("Recurso: " + recurso.getDescricao());
-                                            usuarioSessao.putMapaRecursosPermitido(recurso);
-                                        }
+                            if (lFUrl.get(0).getPrincipalUrl() != null && lFUrl.get(0).getPrincipalUrl().equals(TipoSimNao.S)) {
+                                // Recursos Permitidos
+                                usuarioSessao.carregar();
+                                List<Recurso> listaRecursosPermitidos = usuarioSessao.getRecursosPermitidos(funcionalidade);
+                                if (listaRecursosPermitidos != null) {
+                                    for (Recurso recurso : listaRecursosPermitidos) {
+                                        System.out.println("Recurso: " + recurso.getDescricao());
+                                        usuarioSessao.putMapaRecursosPermitido(recurso);
                                     }
                                 }
-                                break;
                             }
                         }
                     }
                 }
             }
-            if (!hasPermission) {
-                System.out.println("Acesso negado: " + currentPage + " | " + usuarioSessao.getLogin());
-                NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
-                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "ACESSO NEGADO"));
-                nh.handleNavigation(facesContext, null, "erro");
-            }
-        } else if (paginaSemPermissao && (usuarioSessao == null || !usuarioSessao.isUsuarioLogado())) {
+
+        if (!hasPermission) {
+            System.out.println("Acesso negado: " + currentPage + " | " + usuarioSessao.getLogin());
             NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "", "É NECESSÁRIO SE AUTENTICAR"));
-            nh.handleNavigation(facesContext, null, "login");
-        } else {
-            NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "", "SESSÃO EXPIRADA"));
-            nh.handleNavigation(facesContext, null, "login");
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "ACESSO NEGADO"));
+            nh.handleNavigation(facesContext, null, "erro");
         }
     }
+    else if (paginaSemPermissao && (usuarioSessao == null || !usuarioSessao.isUsuarioLogado () 
+        )) {
+            NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "", "É NECESSÁRIO SE AUTENTICAR"));
+        nh.handleNavigation(facesContext, null, "login");
+    }
 
-    @Override
-    public void beforePhase(PhaseEvent event) {
+    
+        else {
+            NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "", "SESSÃO EXPIRADA"));
+        nh.handleNavigation(facesContext, null, "login");
+    }
+}
+
+@Override
+        public void beforePhase(PhaseEvent event) {
 
     }
 
     @Override
-    public PhaseId getPhaseId() {
+        public PhaseId getPhaseId() {
         return PhaseId.RESTORE_VIEW;
     }
 }
