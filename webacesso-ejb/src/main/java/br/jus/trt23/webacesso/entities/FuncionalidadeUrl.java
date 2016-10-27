@@ -44,5 +44,12 @@ public class FuncionalidadeUrl extends EntidadeGenericaComId
         return "Funcionalidade URL"; //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public String toString() {
+        return getViewId().concat(" principal[" + getPrincipalUrl().getDescricao() + "]"); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+
 	
 }

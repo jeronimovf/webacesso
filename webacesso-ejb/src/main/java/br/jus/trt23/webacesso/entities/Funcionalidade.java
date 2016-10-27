@@ -130,4 +130,11 @@ public class Funcionalidade extends EntidadeGenericaComId {
     public String getNomeNatural() {
         return "Funcionalidade";
     }
+
+    @Override
+    public String toString() {
+        return getDescricao();
+    }
+    
+    
 }

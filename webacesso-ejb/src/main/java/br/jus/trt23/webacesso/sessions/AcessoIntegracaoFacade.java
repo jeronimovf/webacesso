@@ -32,7 +32,7 @@ public class AcessoIntegracaoFacade extends AbstractFacadeComId<Acesso> {
         if (usuario != null && usuario.getLogin() != null) {
             predicates.add(cb.equal(c.get("usuario"), usuario));
         }
-        cq.select(c).where(predicates.toArray(new javax.persistence.criteria.Predicate[]{}));
+        cq.select(c).where(predicates.toArray(new Predicate[]{}));
 
         return getEntityManager().createQuery(cq).getResultList();
 
