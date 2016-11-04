@@ -23,6 +23,8 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
+import lombok.Getter;
+import lombok.Setter;
 
 @Named
 @Dependent
@@ -51,6 +53,10 @@ public class SelecionarPerfilController implements Serializable {
     private ConfiguracaoAplicacao configuracaoAplicacao;
 
     private List<Acesso> listaAcesso;
+    
+    @Getter
+    @Setter
+    private Acesso acessoAtivo;
 
     @PostConstruct
     public void init() {
