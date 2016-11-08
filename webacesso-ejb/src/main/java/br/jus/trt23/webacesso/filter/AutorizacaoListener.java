@@ -7,6 +7,8 @@ import br.jus.trt23.webacesso.entities.Recurso;
 import br.jus.trt23.webacesso.util.UsuarioSessao;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.enterprise.inject.Model;
@@ -20,6 +22,7 @@ import javax.inject.Inject;
 
 @Model
 public class AutorizacaoListener implements PhaseListener {
+ 
 
     @Inject
     UsuarioSessao usuarioSessao;
@@ -54,14 +57,14 @@ public class AutorizacaoListener implements PhaseListener {
                         lFUrlParaPagina = sFUrl.filter(f -> f.getViewId().equalsIgnoreCase(currentPage.substring(1))).collect(Collectors.toList());
                         if (lFUrlParaPagina.size() == 1) {
                             hasPermission = true;
-                            System.out.println("Acesso permitido: " + currentPage + " | " + usuarioSessao.getLogin());
-
+                            Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Acesso permitido: {0} | {1}", new Object[]{currentPage, usuarioSessao.getLogin()});
                             if (lFUrl.get(0).getPrincipalUrl() != null && lFUrl.get(0).getPrincipalUrl().equals(TipoSimNao.S)) {
                                 // Recursos Permitidos
                                 usuarioSessao.carregar();
                                 List<Recurso> listaRecursosPermitidos = usuarioSessao.getRecursosPermitidos(funcionalidade);
                                 if (listaRecursosPermitidos != null) {
                                     for (Recurso recurso : listaRecursosPermitidos) {
+                                        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Recurso: {0}", new Object[]{recurso.getDescricao()});                                        
                                         System.out.println("Recurso: " + recurso.getDescricao());
                                         usuarioSessao.putMapaRecursosPermitido(recurso);
                                     }
@@ -74,7 +77,7 @@ public class AutorizacaoListener implements PhaseListener {
             }
 
             if (!hasPermission) {
-                System.out.println("Acesso negado: " + currentPage + " | " + usuarioSessao.getLogin());
+                Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Acesso negado: {0} | {1}", new Object[]{currentPage, usuarioSessao.getLogin()});                
                 NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
                 facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "ACESSO NEGADO"));
                 nh.handleNavigation(facesContext, null, "/erro.xhtml?faces-redirect=true");

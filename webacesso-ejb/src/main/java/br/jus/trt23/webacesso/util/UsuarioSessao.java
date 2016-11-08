@@ -1,5 +1,6 @@
 package br.jus.trt23.webacesso.util;
 
+import br.jus.trt23.webacesso.entities.Acesso;
 import br.jus.trt23.webacesso.entities.Funcionalidade;
 import br.jus.trt23.webacesso.entities.Recurso;
 import br.jus.trt23.webacesso.enums.TipoMagistrado;
@@ -9,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import lombok.Getter;
+import lombok.Setter;
 
 @Named
 @SessionScoped
@@ -30,6 +33,9 @@ public class UsuarioSessao implements Serializable
 	private Long numeroCargoComissionado;
 	private Long titularCargoComissionado;
 	private TipoMagistrado tipoMagistrado;
+        @Getter
+        @Setter
+        private Acesso acessoAtivo;
 	
 	private String perfil;
 	private boolean multipluPerfil;

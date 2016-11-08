@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.security.Principal;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.inject.Model;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -23,8 +25,9 @@ import lombok.Setter;
 
 @Model
 public class AutenticacaoController implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     @Inject
     private UsuarioIntegracaoController usuarioIntegracaoController;
 
@@ -63,7 +66,7 @@ public class AutenticacaoController implements Serializable {
         if (autenticado) {
             Usuario usuario = usuarioIntegracaoController.buscarUsuario(login);
             if (usuario != null) {
-                System.out.println("[" + ip() + "] " + usuario.getLogin() + " | " + usuario.getNome() + " autenticado com sucesso.");
+                Logger.getLogger(this.getClass().getName()).log(Level.INFO, "[{0}] {1} | {2} autenticado com sucesso.", new Object[]{ip(), usuario.getLogin(), usuario.getNome()});
                 List<Usuario> listaUsuario = usuarioIntegracaoController.obterListaUsuarioSistema(usuario);
                 List<Acesso> listaAcesso = acessoIntegracaoFacade.listarAcessos(new Sistema(configuracaoAplicacao.getCodigoSistema()), listaUsuario);
                 if (usuario.getDataDesligamento() != null && usuario.getDataDesligamento().before(Util.trunc(new java.util.Date()))) {
@@ -123,9 +126,7 @@ public class AutenticacaoController implements Serializable {
         senha = null;
     }
 
-
     public AutenticacaoController() {
     }
-    
-    
+
 }

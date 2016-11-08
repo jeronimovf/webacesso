@@ -20,6 +20,18 @@ public class AcessoIntegracaoFacade extends AbstractFacadeComId<Acesso> {
         super(Acesso.class);
     }
 
+    @Override
+    public Acesso find(Object id) {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Acesso> cq = cb.createQuery(Acesso.class);
+        Root<Acesso> c = cq.from(Acesso.class);
+        cq.select(c).where(cb.equal(c.get("id"), id));
+
+        return getEntityManager().createQuery(cq).getSingleResult();
+    }
+    
+    
+
     @SuppressWarnings("unchecked")
     public List<Acesso> listarAcessos(final Sistema sistema, final Usuario usuario) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();

@@ -34,11 +34,12 @@ public class AcessoConverter implements Converter {
     private AcessoIntegracaoFacade facade;
 
     @Override
-    public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
+    public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {        
         if (value == null || value.length() == 0 || JsfUtil.isDummySelectItem(component, value)) {
             return null;
         }
-        return this.facade.find(getKey(value));
+        Acesso acesso = this.facade.find(getKey(value));
+        return acesso;
     }
 
     java.lang.Long getKey(String value) {

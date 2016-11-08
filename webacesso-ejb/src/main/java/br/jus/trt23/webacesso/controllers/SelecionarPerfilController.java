@@ -29,14 +29,15 @@ import lombok.Setter;
 @Named
 @Dependent
 public class SelecionarPerfilController implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     @Inject
     private AcessoIntegracaoFacade acessoFacade;
 
     @Inject
     private UsuarioIntegracaoController usuarioIntegracaoController;
-    
+
     @Inject
     private FuncionalidadeFacade funcionalidadeFacade;
 
@@ -53,7 +54,7 @@ public class SelecionarPerfilController implements Serializable {
     private ConfiguracaoAplicacao configuracaoAplicacao;
 
     private List<Acesso> listaAcesso;
-    
+
     @Getter
     @Setter
     private Acesso acessoAtivo;
@@ -88,19 +89,20 @@ public class SelecionarPerfilController implements Serializable {
             listaAcesso.addAll(listaAcessoDelegacoes);
         }
 
-        if (listaAcesso != null && listaAcesso.size() == 1) {
-            obterFuncionalidades(listaAcesso.get(0));
-        } else if (listaAcesso == null || listaAcesso.isEmpty()) {
-            MensagemUtil.error("Usuário sem acesso a este sistema.");
+        if (null == usuarioSessao.getAcessoAtivo()) {
+            if (listaAcesso != null && listaAcesso.size() >= 1) {
+                obterFuncionalidades(listaAcesso.get(0));
+            } else if (listaAcesso == null || listaAcesso.isEmpty()) {
+                MensagemUtil.error("Usuário sem acesso a este sistema.");
+            }
         }
     }
 
-    public String selecionarPerfil(final Acesso acesso) throws IOException {
-        if (acesso != null) {
+    public void selecionarPerfil() throws IOException {
+        if (null != usuarioSessao.getAcessoAtivo()) {
             usuarioSessao.setMultipluPerfil(true);
-            obterFuncionalidades(acesso);
+            obterFuncionalidades(usuarioSessao.getAcessoAtivo());
         }
-        return "menu";
     }
 
     private void obterFuncionalidades(final Acesso acesso) {
