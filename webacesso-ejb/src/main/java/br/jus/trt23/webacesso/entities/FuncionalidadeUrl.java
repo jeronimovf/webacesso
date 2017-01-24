@@ -39,6 +39,9 @@ public class FuncionalidadeUrl extends EntidadeGenericaComId
 	@Column(name="URL")
 	private String url;
 
+	@Column(name="LEGENDA")
+	private String legenda;
+        
     @Override
     public String getNomeNatural() {
         return "Funcionalidade URL"; //To change body of generated methods, choose Tools | Templates.

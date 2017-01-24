@@ -143,6 +143,7 @@ public class SelecionarPerfilController implements Serializable {
                 }
             }
         }
+        usuarioSessao.setMenuModel(null);
     }
 
     public List<Acesso> getListaAcesso() {
