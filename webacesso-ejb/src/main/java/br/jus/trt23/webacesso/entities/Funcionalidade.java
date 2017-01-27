@@ -64,6 +64,10 @@ public class Funcionalidade extends EntidadeGenericaComId {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, mappedBy = "funcionalidade", targetEntity = FuncionalidadeUrl.class)
     public Set<FuncionalidadeUrl> listaUrl;
+    
+    @ManyToMany
+    @JoinTable(name="FUNCIONALIDADE_FLOW", schema = Constantes.SCHEMA)    
+    public Set<Flow> flows;
 
     /**
      * Recursos existentes na funcionalidade, os recursos que o usuário/perfil

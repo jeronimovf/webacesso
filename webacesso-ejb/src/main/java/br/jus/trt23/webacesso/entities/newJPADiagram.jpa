@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jpa:entity-mappings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" pkg="br.jus.trt23.webacesso.entities" v="1.5.4" persistenceUnitName="webacessoPU" xs="false" id="_14855295512941" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd">
+    <jpa:schema>WEBACESSO</jpa:schema>
+    <jpa:default-class abs="false" class="LotacaoPK" visibile="true" minimized="false">
+        <jpa:embeddable>false</jpa:embeddable>
+        <jpa:attribute attribute-type="Long" visibile="true" name="id"/>
+        <jpa:attribute attribute-type="Long" visibile="true" name="lotacaoPai"/>
+    </jpa:default-class>
+    <jpa:default-class abs="false" class="UsuarioRecursoPK" visibile="true" minimized="false">
+        <jpa:embeddable>false</jpa:embeddable>
+        <jpa:attribute attribute-type="Long" visibile="true" name="usuario"/>
+        <jpa:attribute attribute-type="Long" visibile="true" name="recurso"/>
+        <jpa:attribute attribute-type="Long" visibile="true" name="permissao"/>
+    </jpa:default-class>
+    <jpa:default-class abs="false" class="PapelRecursoPK" visibile="true" minimized="false">
+        <jpa:embeddable>false</jpa:embeddable>
+        <jpa:attribute attribute-type="Long" visibile="true" name="papel"/>
+        <jpa:attribute attribute-type="Long" visibile="true" name="recurso"/>
+        <jpa:attribute attribute-type="Long" visibile="true" name="permissao"/>
+    </jpa:default-class>
+    <jpa:entity xre="false" sm="false" abs="false" class="UsuarioSistema" superclassId="_1485529700960" visibile="true" minimized="true" rootElement="_14855295512941" id="_1485529653775">
+        <jpa:attributes>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_14855296538192"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="UsuarioExterno" superclassId="_1485529700960" visibile="true" minimized="true" rootElement="_14855295512941" id="_1485529677535">
+        <jpa:attributes>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_14855296775364"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="true" class="Usuario" visibile="true" minimized="false" rootElement="_14855295512941" id="_1485529700960">
+        <jpa:attributes>
+            <many-to-one optional="true" primaryKey="false" connected-entity-id="_1485529901341" connected-attribute-id="_148552998107013" visibile="true" name="tipo" id="_148552998106912"/>
+            <one-to-many collection-type="java.util.List" connected-entity-id="_1485530048586" connected-attribute-id="_148553016778824" visibile="true" name="runAses" id="_148553016778925"/>
+            <one-to-many collection-type="java.util.List" connected-entity-id="_1485530038502" connected-attribute-id="_148553578727648" visibile="true" name="delegacoesConcedidas" id="_148553578727749"/>
+            <one-to-many collection-type="java.util.List" connected-entity-id="_1485530038502" connected-attribute-id="_148553582658950" visibile="true" name="delegacoesRecebidas" id="_148553582659251"/>
+            <one-to-many collection-type="java.util.List" connected-entity-id="_1485536338604" connected-attribute-id="_148553636919369" visibile="true" name="usuarioRecursoes" id="_148553636919570"/>
+            <many-to-many collection-type="java.util.List" connected-entity-id="_1485530091895" connected-attribute-id="_148553025589528" visibile="true" name="papeis" id="_148553025589729"/>
+            <many-to-many collection-type="java.util.List" connected-entity-id="_1485530354347" connected-attribute-id="_148553730876598" visibile="true" name="flows" id="_148553730877199"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_14855297009616"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="UsuarioTipo" visibile="true" minimized="true" rootElement="_14855295512941" id="_1485529901341">
+        <jpa:attributes>
+            <basic attribute-type="String" visibile="true" name="nome" id="_148553692852477"/>
+            <one-to-many collection-type="java.util.List" connected-entity-id="_1485529700960" connected-attribute-id="_148552998106912" visibile="true" name="usuarios" id="_148552998107013"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_14855299013438"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="Sistema" visibile="true" minimized="false" rootElement="_14855295512941" id="_1485530027245">
+        <jpa:attributes>
+            <one-to-many collection-type="java.util.List" connected-entity-id="_1485530048586" connected-attribute-id="_148553019186826" visibile="true" name="runAses" id="_148553019187027"/>
+            <one-to-many collection-type="java.util.List" connected-entity-id="_1485530038502" connected-attribute-id="_148553572331446" visibile="true" name="delegacaos" id="_148553572331547"/>
+            <one-to-many collection-type="java.util.List" connected-entity-id="_1485530354347" connected-attribute-id="_148553621259661" visibile="true" name="flows" id="_148553621259962"/>
+            <one-to-many collection-type="java.util.List" connected-entity-id="_1485530389116" connected-attribute-id="_148553626620463" visibile="true" name="recursoes" id="_148553626620564"/>
+            <one-to-many collection-type="java.util.List" connected-entity-id="_1485530091895" connected-attribute-id="_148553689414775" visibile="true" name="papeis" id="_148553689415076"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_148553002724714"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="Delegacao" visibile="true" minimized="true" rootElement="_14855295512941" id="_1485530038502">
+        <jpa:attributes>
+            <many-to-one primaryKey="false" connected-entity-id="_1485530027245" connected-attribute-id="_148553572331547" visibile="true" name="sistema" id="_148553572331446"/>
+            <many-to-one optional="true" primaryKey="false" connected-entity-id="_1485529700960" connected-attribute-id="_148553578727749" visibile="true" name="delegante" id="_148553578727648"/>
+            <many-to-one optional="true" primaryKey="false" connected-entity-id="_1485529700960" connected-attribute-id="_148553582659251" visibile="true" name="delegado" id="_148553582658950"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_148553003850416"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="RunAs" visibile="true" minimized="false" rootElement="_14855295512941" id="_1485530048586">
+        <jpa:attributes>
+            <many-to-one primaryKey="false" connected-entity-id="_1485529700960" connected-attribute-id="_148553016778925" visibile="true" name="usuario" id="_148553016778824"/>
+            <many-to-one primaryKey="false" connected-entity-id="_1485530027245" connected-attribute-id="_148553019187027" visibile="true" name="sistema" id="_148553019186826"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_148553004858718"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="Papel" visibile="true" minimized="true" rootElement="_14855295512941" id="_1485530091895">
+        <jpa:attributes>
+            <many-to-one primaryKey="false" connected-entity-id="_1485530027245" connected-attribute-id="_148553689415076" visibile="true" name="sistema" id="_148553689414775"/>
+            <one-to-many collection-type="java.util.List" connected-entity-id="_1485537180967" connected-attribute-id="_148553720196990" visibile="true" name="papelRecursoes" id="_148553720197091"/>
+            <many-to-many own="true" collection-type="java.util.List" connected-entity-id="_1485529700960" connected-attribute-id="_148553025589729" visibile="true" name="usuarios" id="_148553025589528"/>
+            <many-to-many collection-type="java.util.List" connected-entity-id="_1485530354347" connected-attribute-id="_1485537331396100" visibile="true" name="flows" id="_1485537331407101"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_148553009189720"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="Flow" visibile="true" minimized="true" rootElement="_14855295512941" id="_1485530354347">
+        <jpa:attributes>
+            <basic attribute-type="String" visibile="true" name="flowId" id="_148553600589952">
+                <jpa:column unique="true" nullable="false" insertable="true" updatable="true"/>
+            </basic>
+            <basic attribute-type="Short" visibile="true" name="exibicaoOrdem" id="_148553601985953">
+                <jpa:column unique="false" nullable="false" insertable="true" updatable="true"/>
+            </basic>
+            <basic attribute-type="String" visibile="true" name="legenda" id="_148553609745555">
+                <jpa:column unique="false" nullable="false" insertable="true" updatable="true"/>
+            </basic>
+            <many-to-one primaryKey="false" connected-entity-id="_1485530027245" connected-attribute-id="_148553621259962" visibile="true" name="sistema" id="_148553621259661"/>
+            <one-to-many collection-type="java.util.List" connected-entity-id="_1485530402486" connected-attribute-id="_148553614669657" visibile="true" name="views" id="_148553614669858"/>
+            <many-to-many own="true" collection-type="java.util.List" connected-entity-id="_1485529700960" connected-attribute-id="_148553730877199" visibile="true" name="usuarios" id="_148553730876598"/>
+            <many-to-many own="true" collection-type="java.util.List" connected-entity-id="_1485530091895" connected-attribute-id="_1485537331407101" visibile="true" name="papeis" id="_1485537331396100"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_148553035434930">
+                <jpa:generated-value/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="Recurso" visibile="true" minimized="true" rootElement="_14855295512941" id="_1485530389116">
+        <jpa:attributes>
+            <basic attribute-type="String" visibile="true" name="recursoId" id="_148553627780565"/>
+            <basic attribute-type="String" visibile="true" name="legenda" id="_148553631412566"/>
+            <many-to-one optional="true" primaryKey="false" connected-entity-id="_1485530027245" connected-attribute-id="_148553626620564" visibile="true" name="sistema" id="_148553626620463"/>
+            <one-to-many collection-type="java.util.List" connected-entity-id="_1485536338604" connected-attribute-id="_148553698423980" visibile="true" name="usuarioRecursoes" id="_148553698424181"/>
+            <one-to-many collection-type="java.util.List" connected-entity-id="_1485537180967" connected-attribute-id="_148553720877092" visibile="true" name="papelRecursoes" id="_148553720877493"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_148553038911932"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="View" visibile="true" minimized="false" rootElement="_14855295512941" id="_1485530402486">
+        <jpa:attributes>
+            <basic attribute-type="String" visibile="true" name="viewId" id="_148553607494154">
+                <jpa:column unique="true" nullable="false" insertable="true" updatable="true"/>
+            </basic>
+            <basic attribute-type="String" visibile="true" name="legenda" id="_148553612193556">
+                <jpa:column unique="false" nullable="false" insertable="true" updatable="true"/>
+            </basic>
+            <many-to-one primaryKey="false" connected-entity-id="_1485530354347" connected-attribute-id="_148553614669858" visibile="true" name="flow" id="_148553614669657"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_148553040248934"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="LotacaoSistema" superclassId="_1485534231165" visibile="true" minimized="false" rootElement="_14855295512941" id="_1485534196212">
+        <jpa:attributes/>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="LotacaoVirtual" superclassId="_1485534231165" visibile="true" minimized="false" rootElement="_14855295512941" id="_1485534206462">
+        <jpa:attributes/>
+    </jpa:entity>
+    <jpa:entity xre="false" compositePrimaryKeyType="IDCLASS" compositePrimaryKeyClass="LotacaoPK" sm="false" abs="true" class="Lotacao" visibile="true" minimized="false" rootElement="_14855295512941" id="_1485534231165">
+        <jpa:attributes>
+            <many-to-one optional="true" primaryKey="true" connected-entity-id="_1485534231165" connected-attribute-id="_148553563888345" visibile="true" name="lotacaoPai" id="_148553563887944"/>
+            <one-to-many collection-type="java.util.List" connected-entity-id="_1485534231165" connected-attribute-id="_148553563887944" visibile="true" name="lotacoesSubordinadas" id="_148553563888345"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_148553423116842"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" compositePrimaryKeyType="IDCLASS" compositePrimaryKeyClass="UsuarioRecursoPK" sm="false" abs="false" class="UsuarioRecurso" visibile="true" minimized="true" rootElement="_14855295512941" id="_1485536338604">
+        <jpa:attributes>
+            <many-to-one primaryKey="true" connected-entity-id="_1485529700960" connected-attribute-id="_148553636919570" visibile="true" name="usuario" id="_148553636919369"/>
+            <many-to-one primaryKey="true" connected-entity-id="_1485530389116" connected-attribute-id="_148553698424181" visibile="true" name="recurso" id="_148553698423980"/>
+            <many-to-one primaryKey="true" connected-entity-id="_1485537078706" connected-attribute-id="_148553711612887" visibile="true" name="permissao" id="_148553711612486"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="RecursoPermissao" visibile="true" minimized="true" rootElement="_14855295512941" id="_1485537078706">
+        <jpa:attributes>
+            <basic attribute-type="String" visibile="true" name="nome" id="_148553708970685"/>
+            <one-to-many collection-type="java.util.List" connected-entity-id="_1485536338604" connected-attribute-id="_148553711612486" visibile="true" name="usuarioRecursoes" id="_148553711612887"/>
+            <one-to-many collection-type="java.util.List" connected-entity-id="_1485537180967" connected-attribute-id="_148553721561594" visibile="true" name="papelRecursoes" id="_148553721562295"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_148553707871983"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" compositePrimaryKeyType="IDCLASS" compositePrimaryKeyClass="PapelRecursoPK" sm="false" abs="false" class="PapelRecurso" visibile="true" minimized="true" rootElement="_14855295512941" id="_1485537180967">
+        <jpa:attributes>
+            <many-to-one primaryKey="true" connected-entity-id="_1485530091895" connected-attribute-id="_148553720197091" visibile="true" name="papel" id="_148553720196990"/>
+            <many-to-one primaryKey="true" connected-entity-id="_1485530389116" connected-attribute-id="_148553720877493" visibile="true" name="recurso" id="_148553720877092"/>
+            <many-to-one primaryKey="true" connected-entity-id="_1485537078706" connected-attribute-id="_148553721562295" visibile="true" name="permissao" id="_148553721561594"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:c>
+        <ct>java.util.List</ct>
+        <ct>java.util.Set</ct>
+        <ct>java.util.Collection</ct>
+    </jpa:c>
+    <jpa:diagram>
+        <plane elementRef="_14855295512941">
+            <shape elementRef="_1485529653775">
+                <Bounds x="423.0" y="228.0" width="189.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_1485529677535">
+                <Bounds x="449.0" y="256.0" width="186.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_1485529700960">
+                <Bounds x="472.0" y="11.0" width="189.0" height="218.0"/>
+            </shape>
+            <shape elementRef="_1485529901341">
+                <Bounds x="733.0" y="25.0" width="166.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_1485530027245">
+                <Bounds x="-31.0" y="76.0" width="143.0" height="176.0"/>
+            </shape>
+            <shape elementRef="_1485530038502">
+                <Bounds x="305.0" y="-93.0" width="158.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_1485530048586">
+                <Bounds x="175.0" y="11.0" width="133.0" height="113.0"/>
+            </shape>
+            <shape elementRef="_1485530091895">
+                <Bounds x="163.0" y="183.0" width="130.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_1485530354347">
+                <Bounds x="175.0" y="256.0" width="135.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_1485530389116">
+                <Bounds x="817.0" y="207.0" width="148.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_1485530402486">
+                <Bounds x="188.0" y="391.0" width="128.0" height="147.0"/>
+            </shape>
+            <shape elementRef="_1485534196212">
+                <Bounds x="446.0" y="483.0" width="189.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_1485534206462">
+                <Bounds x="569.0" y="449.0" width="179.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_1485534231165">
+                <Bounds x="503.0" y="302.0" width="174.0" height="113.0"/>
+            </shape>
+            <shape elementRef="_1485536338604">
+                <Bounds x="612.0" y="-103.0" width="190.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_1485537078706">
+                <Bounds x="847.0" y="-93.0" width="208.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_1485537180967">
+                <Bounds x="728.0" y="76.0" width="178.0" height="24.0"/>
+            </shape>
+        </plane>
+    </jpa:diagram>
+</jpa:entity-mappings>
