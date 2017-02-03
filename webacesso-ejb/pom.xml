@@ -20,15 +20,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>webacesso</artifactId>
+        <artifactId>webacesso2</artifactId>
         <groupId>br.jus.trt23</groupId>
         <version>2.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>webacesso-ejb</artifactId>
+    <artifactId>webacesso2-ejb</artifactId>
     <packaging>jar</packaging>
 
-    <name>webacesso-ejb</name>
+    <name>Webacesso 2 EJB</name>
 
     <properties>
         <!-- Explicitly declaring the source encoding eliminates the following 
@@ -142,6 +142,11 @@
             <version>6.0.14</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.2.4.Final</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -253,4 +258,5 @@
         </profile>
 
     </profiles>
+    <version>2.0.0-SNAPSHOT</version>
 </project>

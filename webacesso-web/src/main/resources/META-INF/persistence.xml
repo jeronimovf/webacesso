@@ -1,34 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="         http://xmlns.jcp.org/xml/ns/persistence         http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence                  http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="webAcessoPU" transaction-type="JTA">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <jta-data-source>java:/webAcessoDS</jta-data-source>
-    <class>br.jus.trt23.webacesso.entities.DelegarGestor</class>
-    <class>br.jus.trt23.webacesso.entities.Funcionalidade</class>
-    <class>br.jus.trt23.webacesso.entities.FuncionalidadeUrl</class>
-    <class>br.jus.trt23.webacesso.entities.Perfil</class>
-    <class>br.jus.trt23.webacesso.entities.Permissao</class>
-    <class>br.jus.trt23.webacesso.entities.Recurso</class>
-    <class>br.jus.trt23.webacesso.entities.Sistema</class>
-    <class>br.jus.trt23.webacesso.entities.TipoUsuario</class>
-    <class>br.jus.trt23.webacesso.entities.UnidadeSemGestor</class>
-    <class>br.jus.trt23.webacesso.entities.UsuarioExterno</class>
-    <class>br.jus.trt23.webacesso.entities.UsuarioSistema</class>
+    <jta-data-source>java:/webAcesso2DS</jta-data-source>
+    <class>br.jus.trt23.webacesso.entities.Delegacao</class>
     <class>br.jus.trt23.webacesso.entities.Flow</class>
-    <class>br.jus.trt23.webacesso.entities.ViewId</class>
-    <class>br.jus.trt23.webacesso.entities.Acesso</class>
-    <class>br.jus.trt23.webacesso.entities.Unidade</class>
+    <class>br.jus.trt23.webacesso.entities.FlowView</class>
+    <class>br.jus.trt23.webacesso.entities.Lotacao</class>
+    <class>br.jus.trt23.webacesso.entities.Papel</class>
+    <class>br.jus.trt23.webacesso.entities.PapelRecurso</class>
+    <class>br.jus.trt23.webacesso.entities.Recurso</class>
+    <class>br.jus.trt23.webacesso.entities.RecursoPermissao</class>
+    <class>br.jus.trt23.webacesso.entities.RunAs</class>
+    <class>br.jus.trt23.webacesso.entities.Sistema</class>
+    <class>br.jus.trt23.webacesso.entities.UsuarioExterno</class>
+    <class>br.jus.trt23.webacesso.entities.UsuarioRecurso</class>
+    <class>br.jus.trt23.webacesso.entities.UsuarioSistema</class>
+    <class>br.jus.trt23.webacesso.entities.UsuarioTipo</class>
     <class>br.jus.trt23.webacesso.entities.Usuario</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.format_sql" value="true"/>
-      <property name="hibernate.transaction.factory_class" value="org.hibernate.transaction.JDBCTransactionFactory"/>
-      <property name="javax.persistence.schema-generation.scripts.action" value="create"/>
-      <property name="javax.persistence.schema-generation.scripts.create-target" value="./vaisifude-create.ddl"/>
-      <property name="javax.persistence.schema-generation.scripts.drop-target" value="./vaisifudedrop.ddl"/>
-      <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+      <property name="javax.persistence.schema-generation.scripts.create-target" value="META-INF/sql/create.sql"/>
+      <property name="javax.persistence.schema-generation.scripts.drop-target" value="META-INF/sql/drop.sql"/>
+      <property name="javax.persistence.schema-generation.scripts.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
 </persistence>

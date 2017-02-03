@@ -20,24 +20,24 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>webacesso</artifactId>
+        <artifactId>webacesso2</artifactId>
         <groupId>br.jus.trt23</groupId>
         <version>2.0.0-SNAPSHOT</version>
     </parent>
 
 
-    <artifactId>webacesso-web</artifactId>
+    <artifactId>webacesso2-web</artifactId>
 
     <packaging>war</packaging>
 
-    <name>webacesso-web</name>
+    <name>Webacesso 2 WEB</name>
 
     <properties>
         <!-- Explicitly declaring the source encoding eliminates the following 
         message: -->
         <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
         resources, i.e. build is platform dependent! -->
-        <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- JBoss dependency versions -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
@@ -64,12 +64,13 @@
 
         <dependency>
             <groupId>br.jus.trt23</groupId>
-            <artifactId>view</artifactId>
+            <artifactId>view2</artifactId>
+            <version>2.0.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>br.jus.trt23</groupId>
-            <artifactId>webacesso-ejb</artifactId>
+            <artifactId>webacesso2-ejb</artifactId>
             <version>2.0.0-SNAPSHOT</version>
         </dependency>        
 

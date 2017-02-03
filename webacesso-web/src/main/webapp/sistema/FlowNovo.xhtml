@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:t="http://xmlns.jcp.org/jsf/composite/components"
+                template="/template.xhtml"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+
+        <t:FormFlowCreate id="flowCreate" casePrefix="flowCreate" 
+                          entityToUpdate="#{sistemaFlow.controller.flowNovo}" 
+                          saveAction="#{sistemaFlow.controller.saveOrCreateFlow()}"
+                          goBackToAction="#{sistemaFlow.controller.goBackTo('Edit')}"
+                          controller="#{sistemaFlow.controller}">                      
+            <t:FormRowString textValue="#{sistemaFlow.controller.flowNovo.flowId}"
+                             labelValue="#{flowWeba2Controller.getMsgFieldLabel('flowId')}"
+                             textSize="30"/>
+            <t:FormRowNumber decimalPlaces="0" 
+                             labelValue="#{flowWeba2Controller.getMsgFieldLabel('exibicaoOrdem')}"
+                             minValue="-1" numberValue="#{sistemaFlow.controller.flowNovo.exibicaoOrdem}"
+                             title="#{flowWeba2Controller.getMsgFieldHint('exibicaoOrdem')}"/>            
+        </t:FormFlowCreate>
+    </ui:define>
+</ui:composition>

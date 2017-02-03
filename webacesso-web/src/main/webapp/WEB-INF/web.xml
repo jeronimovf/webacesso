@@ -1,155 +1,157 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="webacesso" version="3.0">
-  
-  <display-name>WebAcesso</display-name>
-  
-  <welcome-file-list>
-    <welcome-file>/index.html</welcome-file>
-  </welcome-file-list>
-  
-  <context-param>
-    <param-name>CODIGO_SISTEMA</param-name>
-    <param-value>1</param-value>
-  </context-param>
-  
-  <context-param>
-	<param-name>AMBIENTE_PRODUCAO</param-name>
-	<param-value>S</param-value>
-  </context-param>
-  
-  <context-param>
-    <param-name>CAS_LOGOUT_URL</param-name>
-    <param-value>http://sede-cas01.trt23.jus.br:8080/cas/logout</param-value>
-  </context-param>
-  
-  <context-param>
-	<param-name>INTRANET_URL</param-name>
-	<param-value>https://intranet.trt23.jus.br</param-value>
-  </context-param>
-  
-  <context-param>
-    <param-name>primefaces.THEME</param-name>
-    <param-value>redmond</param-value>
-  </context-param>
-  
-  <context-param>  
-    <param-name>facelets.BUILD_BEFORE_RESTORE</param-name>  
-    <param-value>false</param-value>  
-  </context-param>
-  
-  <servlet> 
-  	<servlet-name>Faces Servlet</servlet-name> 
-  	<servlet-class>javax.faces.webapp.FacesServlet</servlet-class> 
-  	<load-on-startup>1</load-on-startup> 
-  </servlet>   
-  <servlet-mapping>
-	<servlet-name>Faces Servlet</servlet-name>
-	<url-pattern>/faces/*</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-	<servlet-name>Faces Servlet</servlet-name>
-	<url-pattern>*.jsf</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-	<servlet-name>Faces Servlet</servlet-name>
-	<url-pattern>*.faces</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-	<servlet-name>Faces Servlet</servlet-name>
-	<url-pattern>*.xhtml</url-pattern>
-  </servlet-mapping>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <display-name>Webacesso 2 (Desenvolvimento)</display-name>
+    <!--                     CONFIGURAÇÕES TRT 23                            -->
+    <context-param>
+        <param-name>CODIGO_SISTEMA</param-name>
+        <param-value>1</param-value>
+    </context-param>
+	
+    <context-param>
+        <param-name>AMBIENTE</param-name>
+        <param-value>D</param-value>
+    </context-param>
 
-  <session-config>
-    <session-timeout>30</session-timeout>
-  </session-config>
-	  
-  <filter>
-    <filter-name>SessaoExpiradaFilter</filter-name>
-    <filter-class>br.jus.trt23.webacesso.filter.SessaoExpiradaFilter</filter-class>
-  </filter>
-  
-  <filter-mapping>
-    <filter-name>SessaoExpiradaFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-    <dispatcher>FORWARD</dispatcher>
-    <dispatcher>REQUEST</dispatcher>
-    <dispatcher>ERROR</dispatcher>
-  </filter-mapping>
-  
-  <filter>
-		<filter-name>CAS Authentication Filter</filter-name>
-		<filter-class>org.jasig.cas.client.authentication.AuthenticationFilter</filter-class>
-		<init-param>
-			<param-name>casServerLoginUrl</param-name>
-			<param-value>http://sede-cas01.trt23.jus.br:8080/cas/login</param-value>
-		</init-param>
-		<init-param>
-			<param-name>renew</param-name>
-			<param-value>false</param-value>
-		</init-param>
-		<init-param>
-			<param-name>serverName</param-name>
-			<param-value>http://localhost:8080</param-value>
-		</init-param>
-	</filter>
-	<filter>
-		<filter-name>CAS Validation Filter</filter-name>
-		<filter-class>org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter</filter-class>
-		<init-param>
-			<param-name>casServerUrlPrefix</param-name>
-			<param-value>http://sede-cas01.trt23.jus.br:8080/cas</param-value>
-		</init-param>
-		<init-param>
-			<param-name>redirectAfterValidation</param-name>
-			<param-value>true</param-value>
-		</init-param>
-		<init-param>
-			<param-name>useSession</param-name>
-			<param-value>true</param-value>
-		</init-param>
-		<init-param>
-			<param-name>serverName</param-name>
-			<param-value>http://localhost:8080</param-value>
-		</init-param>
-	</filter>
-	<filter>
-		<filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
-		<filter-class>org.jasig.cas.client.util.HttpServletRequestWrapperFilter</filter-class>
-	</filter>
-	<filter>
-		<filter-name>CAS Assertion Thread Local Filter</filter-name>
-		<filter-class>org.jasig.cas.client.util.AssertionThreadLocalFilter</filter-class>
-	</filter>
+    <context-param>
+        <param-name>CAS_LOGOUT_URL</param-name>
+        <param-value>http://sede-cas01.trt23.jus.br:8080/cas/logout</param-value>
+    </context-param>   
+    
+    <filter>
+        <filter-name>SessaoExpiradaFilter</filter-name>
+        <filter-class>br.jus.trt23.webacesso.filter.SessaoExpiradaFilter</filter-class>
+    </filter>
+    
+    <context-param>  
+        <param-name>facelets.BUILD_BEFORE_RESTORE</param-name>  
+        <param-value>false</param-value>  
+    </context-param>    
 
-	<!-- And now, the single sign-out filters -->
-	<filter>
-	   <filter-name>CAS Single Sign Out Filter</filter-name>
-	   <filter-class>org.jasig.cas.client.session.SingleSignOutFilter</filter-class>
-	</filter>
+    <filter-mapping>
+        <filter-name>SessaoExpiradaFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
 
-	<!-- Filter mappings in the correct order -->
+    <filter>
+        <filter-name>CAS Authentication Filter</filter-name>
+        <filter-class>org.jasig.cas.client.authentication.AuthenticationFilter</filter-class>
+        <init-param>
+            <param-name>casServerLoginUrl</param-name>
+            <param-value>http://sede-cas01.trt23.jus.br:8080/cas/login</param-value>
+        </init-param>
+        <init-param>
+            <param-name>renew</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <init-param>
+            <param-name>serverName</param-name>
+            <param-value>http://localhost:8080</param-value>
+        </init-param>
+    </filter>
+    <filter>
+        <filter-name>CAS Validation Filter</filter-name>
+        <filter-class>org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter</filter-class>
+        <init-param>
+            <param-name>casServerUrlPrefix</param-name>
+            <param-value>http://sede-cas01.trt23.jus.br:8080/cas</param-value>
+        </init-param>
+        <init-param>
+            <param-name>redirectAfterValidation</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>useSession</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>serverName</param-name>
+            <param-value>http://localhost:8080</param-value>
+        </init-param>
+    </filter>
+    <filter>
+        <filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
+        <filter-class>org.jasig.cas.client.util.HttpServletRequestWrapperFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>CAS Assertion Thread Local Filter</filter-name>
+        <filter-class>org.jasig.cas.client.util.AssertionThreadLocalFilter</filter-class>
+    </filter>
 
-	<filter-mapping>
-		<filter-name>CAS Single Sign Out Filter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>CAS Authentication Filter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>CAS Validation Filter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>CAS Assertion Thread Local Filter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	<listener>
-		<listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
-	</listener>
+    <!-- And now, the single sign-out filters -->
+    <filter>
+        <filter-name>CAS Single Sign Out Filter</filter-name>
+        <filter-class>org.jasig.cas.client.session.SingleSignOutFilter</filter-class>
+    </filter>
+
+    <!-- Filter mappings in the correct order -->
+
+    <filter-mapping>
+        <filter-name>CAS Single Sign Out Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CAS Authentication Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CAS Validation Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CAS Assertion Thread Local Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <listener>
+        <listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
+    </listener>      
+    <!--                   FIM CONFIGURAÇÕES TRT 23                          -->
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+    <context-param>
+        <param-name>primefaces.CLIENT_SIDE_VALIDATION</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.CLIENT_WINDOW_MODE</param-name>
+        <param-value>url</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.faces</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.xhtml</welcome-file>
+    </welcome-file-list>
 </web-app>

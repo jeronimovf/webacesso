@@ -1,6 +1,6 @@
 package br.jus.trt23.webacesso.filter;
 
-import br.jus.trt23.nucleo.constantes.Constantes;
+import br.jus.trt23.nucleo.constants.Constantes;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;

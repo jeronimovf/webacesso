@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">      
+    <ui:composition>
+        <h:form id="mainMenu">
+            <h:outputText value="ITEM-DE-MENU"/>
+            <p:menu toggleable="true" >
+                <p:submenu label="#{messages.Menu_Papel_Administrador}" rendered="true">
+                    <p:menuitem action="#{flowController.flow('sistema')}" value="#{messages.Menu_Flow_Sistema}"/>                                   
+                </p:submenu>
+            </p:menu>            
+        </h:form>
+    </ui:composition>
+
+</html>

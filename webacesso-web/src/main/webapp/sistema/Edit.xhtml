@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:t="http://java.sun.com/jsf/composite/components"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"                
+                template="/template.xhtml">
+    <ui:define name="content">  
+        <t:FormFlowCreate saveAction="#{sistemaFlow.controller.saveOrCreate()}"
+                          casePrefix="sistemaEdit"
+                          controller="#{sistemaFlow.controller}"
+                          entityToUpdate="#{sistemaFlow.controller.selected}"
+                          goBackToAction="#{sistemaFlow.controller.goBackTo('List')}">  
+            <t:FormRowString textValue="#{sistemaFlow.controller.selected.nome}" 
+                             labelValue="#{sistemaFlow.controller.getMsgFieldLabel('nome')}" 
+                             id="nome" 
+                             textSize="20"/>
+            <t:FormRowString textValue="#{sistemaFlow.controller.selected.sigla}"
+                             labelValue="#{sistemaFlow.controller.getMsgFieldLabel('sigla')}" 
+                             id="sigla" 
+                             textSize="6"/><br/>                         
+            <t:FormRowString textValue="#{sistemaFlow.controller.selected.descricao}" 
+                             labelValue="#{sistemaFlow.controller.getMsgFieldLabel('descricao')}" 
+                             id="descricao" 
+                             textSize="60"/><br/>                         
+            <t:FormRowString textValue="#{sistemaFlow.controller.selected.url}" 
+                             labelValue="#{sistemaFlow.controller.getMsgFieldLabel('url')}" 
+                             id="url" 
+                             textSize="60"/>                         
+
+            <p:tabView id="sistemaTabs">
+                <p:tab title="#{sistemaFlow.controller.getMsgFieldLabel('papeis')}">
+                    <t:ListFlowView selection="#{sistemaFlow.controller.papelNovo}" 
+                                    value="#{sistemaFlow.controller.selected.papeis}" 
+                                    casePrefix="papel" 
+                                    action="#{sistemaFlow.controller.preparePapelEdit}" 
+                                    controller="#{sistemaFlow.controller}" 
+                                    id="papel"
+                                    specificValues="true">
+                        <f:facet name="header">
+                            <div class="alignRight">
+                                <p:commandButton action="#{sistemaFlow.controller.preparePapelNovo()}"
+                                                 value="#{messages.CreateLink}"/>
+                            </div>
+                        </f:facet>
+                        <p:column width="25%" 
+                                  headerText="#{papelController.getMsgFieldLabel('nome')}">
+                            <h:outputText value="#{item.nome}"/>
+                        </p:column>                                                     
+                    </t:ListFlowView>
+                </p:tab>
+                <p:tab title="#{sistemaFlow.controller.getMsgFieldLabel('flows')}">
+                    <t:ListFlowView selection="#{sistemaFlow.controller.flowNovo}" 
+                                    value="#{sistemaFlow.controller.selected.flows}" 
+                                    casePrefix="flow" 
+                                    action="#{sistemaFlow.controller.prepareFlowEdit}" 
+                                    controller="#{sistemaFlow.controller}" 
+                                    id="flow"
+                                    specificValues="true">
+                        <f:facet name="header">
+                            <div class="alignRight">
+                                <p:commandButton action="#{sistemaFlow.controller.prepareFlowNovo()}"
+                                                 value="#{messages.CreateLink}"/>
+                            </div>
+                        </f:facet>
+                        <p:column width="25%" 
+                                  headerText="#{flowWeba2Controller.getMsgFieldLabel('flowId')}">
+                            <h:outputText value="#{item.flowId}"/>
+                        </p:column>                                                     
+                    </t:ListFlowView>
+                </p:tab>
+                <p:tab title="#{sistemaFlow.controller.getMsgFieldLabel('recursos')}">
+                    <t:ListFlowView selection="#{sistemaFlow.controller.recursoNovo}" 
+                                    value="#{sistemaFlow.controller.selected.recursos}" 
+                                    casePrefix="recurso" 
+                                    action="#{sistemaFlow.controller.prepareRecursoEdit}" 
+                                    controller="#{sistemaFlow.controller}" 
+                                    id="recurso"
+                                    specificValues="true">
+                        <f:facet name="header">
+                            <div class="alignRight">
+                                <p:commandButton action="#{sistemaFlow.controller.prepareRecursoNovo()}"
+                                                 value="#{messages.CreateLink}"/>
+                            </div>
+                        </f:facet>
+                        <p:column width="25%" 
+                                  headerText="#{recursoController.getMsgFieldLabel('recursoId')}">
+                            <h:outputText value="#{item.recursoId}"/>
+                        </p:column>                                                     
+                    </t:ListFlowView>
+                </p:tab>                
+            </p:tabView>                    
+    </t:FormFlowCreate>
+    </ui:define>
+</ui:composition>
+
+
