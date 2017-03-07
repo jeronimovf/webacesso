@@ -1,11 +1,14 @@
 package br.jus.trt23.webacesso.controllers;
 
 import br.jus.trt23.nucleo.controllers.AbstractController;
+import br.jus.trt23.nucleo.handlers.CollectionExchanger;
 import br.jus.trt23.nucleo.handlers.Jsf;
 import br.jus.trt23.webacesso.entities.Flow;
 import br.jus.trt23.webacesso.entities.Papel;
 import br.jus.trt23.webacesso.entities.Recurso;
 import br.jus.trt23.webacesso.entities.Sistema;
+import java.util.HashSet;
+import java.util.Set;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -16,6 +19,9 @@ import org.primefaces.component.datatable.DataTable;
 @Named
 @Dependent
 public class SistemaController extends AbstractController<Sistema> {
+
+    @Getter
+    private CollectionExchanger<Set> ceFlow;
 
     @Inject
     private PapelController papelController;
@@ -56,6 +62,10 @@ public class SistemaController extends AbstractController<Sistema> {
         if (obj instanceof DataTable) {
             DataTable dt = (DataTable) obj;
             setPapelNovo((Papel) dt.getRowData());
+            ceFlow = new CollectionExchanger<>(
+                    flowWeba2Controller.flowsParaOPapelDiferenca(papelNovo),
+                    new HashSet(papelNovo.getFlows()));
+
         }
         return "PapelEdit";
     }
@@ -166,11 +176,17 @@ public class SistemaController extends AbstractController<Sistema> {
             return null;
         }
     }
-    
+
     @Override
     public String beforeCreate() {
         selected.addPapeis(papelController.administradorNovo(selected));
         return super.beforeCreate();
     }
-
+    
+    private void consistePapelFlow(){
+        Set<Flow> destinationDisjoint = ceFlow.getDestinationCollection().
+        for(Flow f : (Set<Flow>)ceFlow.getDestinationCollection()){
+            f.addPapeis(papelNovo);
+        }
+    }
 }

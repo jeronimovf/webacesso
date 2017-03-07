@@ -13,33 +13,17 @@
                           saveAction="#{sistemaFlow.controller.saveOrCreate()}"
                           goBackToAction="#{sistemaFlow.controller.goBackTo('Edit')}"
                           controller="#{sistemaFlow.controller}">    
-                <t:FormRowString textValue="#{sistemaFlow.controller.papelNovo.nome}"
-                                 labelValue="#{papelController.getMsgFieldLabel('nome')}"
-                                 textSize="30"/><br/>
+            <t:FormRowString textValue="#{sistemaFlow.controller.papelNovo.nome}"
+                             labelValue="#{papelController.getMsgFieldLabel('nome')}"
+                             textSize="30"/><br/>
             <p:tabView id="papelTabs">
-                <p:tab title="#{papelController.getMsgFieldLabel('flows')}">
-                    <t:ListFlowView selection="#{sistemaFlow.controller.papelFlowNovo}" 
-                                value="#{sistemaFlow.controller.papelNovo.flows}" 
-                                casePrefix="papelFlow" 
-                                action="#{sistemaFlow.controller.preparePapelFlowEdit}" 
-                                controller="#{sistemaFlow.controller}" 
-                                id="papelFlow"
-                                specificValues="true">
-                        <f:facet name="header">
-                            <div class="alignRight">
-                                <p:commandButton action="#{sistemaFlow.controller.preparePapelFlowNovo()}"
-                                                 value="#{messages.CreateLink}"/>
-                            </div>
-                        </f:facet>
-                        <p:column width="25%" 
-                                  headerText="#{flowWeba2Controller.getMsgFieldLabel('flowId')}"
-                                  styleClass="alignRight">
-                            <t:OutputMonetary value="#{item.flowId}"/>
-                        </p:column>   
-                    </t:ListFlowView>
+                <p:tab id="flowTab" title="#{papelController.getMsgFieldLabel('flows')}">
+                    <t:FormRowCollectionExchanger 
+                        converter="#{flowConverter}"
+                        collectionExchanger="#{sistemaFlow.controller.ceFlow}"
+                    />                        
                 </p:tab>
             </p:tabView>        
-                
         </t:FormFlowCreate>
     </ui:define>
 </ui:composition>

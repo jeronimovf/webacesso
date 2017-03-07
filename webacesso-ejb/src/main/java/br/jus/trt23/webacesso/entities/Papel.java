@@ -5,6 +5,7 @@ package br.jus.trt23.webacesso.entities;
 
 import br.jus.trt23.nucleo.entities.EntidadeGenerica;
 import br.jus.trt23.webacesso.constants.Constantes;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -26,15 +27,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(schema = Constantes.SCHEMA)
-public class Papel extends EntidadeGenerica<Long>{
+public class Papel extends EntidadeGenerica<Long> {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id")
     @SequenceGenerator(
             schema = Constantes.SCHEMA, sequenceName = "papel_seq", name = "id"
     )
     protected Long id;
-    
-    @ManyToMany(targetEntity = Flow.class, mappedBy = "papeis", cascade = {CascadeType.MERGE,CascadeType.PERSIST, CascadeType.REFRESH})
+
+    @ManyToMany(targetEntity = Flow.class, mappedBy = "papeis", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Set<Flow> flows;
 
     @ManyToOne(targetEntity = Sistema.class)
@@ -44,10 +46,10 @@ public class Papel extends EntidadeGenerica<Long>{
     @Basic
     private String nome;
 
-    @OneToMany(targetEntity = PapelRecurso.class, mappedBy = "papel", cascade = {CascadeType.MERGE,CascadeType.PERSIST, CascadeType.REFRESH})
+    @OneToMany(targetEntity = PapelRecurso.class, mappedBy = "papel", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Set<PapelRecurso> papelRecursos;
 
-    @ManyToMany(targetEntity = Usuario.class, cascade = {CascadeType.MERGE,CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(targetEntity = Usuario.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Set<Usuario> usuarios;
 
     public Papel() {
@@ -55,22 +57,39 @@ public class Papel extends EntidadeGenerica<Long>{
         papelRecursos = new HashSet();
         usuarios = new HashSet();
     }
-    
-    public void addFlows(Flow flow){
+
+    public void addFlows(Flow flow) {
         flows.add(flow);
         flow.getPapeis().add(this);
     }
 
-    public void addUsuarios(Usuario usuario){
+    public void addFlows(Collection<Flow> flows) {
+        for (Flow f : flows) {
+            addFlows(f);
+        }
+    }
+
+    public void removeFlows(Flow flow){
+        flows.remove(flow);
+        flow.removePapeis(this);
+    }
+    
+    public void removeFlows(Collection<Flow> flows){
+        for(Flow f:flows){
+            removeFlows(f);
+        }
+    }
+    
+    public void addUsuarios(Usuario usuario) {
         usuarios.add(usuario);
         usuario.getPapeis().add(this);
     }
-    
-    public void addPapelRecursos(PapelRecurso papelRecurso){
+
+    public void addPapelRecursos(PapelRecurso papelRecurso) {
         papelRecursos.add(papelRecurso);
         papelRecurso.setPapel(this);
-    }    
-    
+    }
+
     @Override
     public String getNomeNatural() {
         return "Papel";

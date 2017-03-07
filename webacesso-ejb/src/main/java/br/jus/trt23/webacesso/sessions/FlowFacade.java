@@ -16,8 +16,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 
 /**
@@ -49,10 +47,9 @@ public class FlowFacade extends AbstractFacade<Flow> {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Flow> cq = cb.createQuery(Flow.class);
         Root<Flow> c = cq.from(Flow.class);
-        Join<Flow, Papel> p = c.join("papeis", JoinType.LEFT);
         cq.select(c).where(
                 cb.and(
-                        cb.isNull(c.get("papeis")),
+                        cb.isEmpty(c.get("papeis")),
                         cb.equal(c.get("sistema"), papel.getSistema())
                 )
         );
@@ -60,6 +57,5 @@ public class FlowFacade extends AbstractFacade<Flow> {
         Set<Flow> flows = new HashSet(getEntityManager().createQuery(cq).getResultList());
         return flows;
     }
-
 
 }

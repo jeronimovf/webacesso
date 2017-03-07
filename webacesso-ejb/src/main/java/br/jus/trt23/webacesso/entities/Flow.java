@@ -5,6 +5,7 @@ package br.jus.trt23.webacesso.entities;
 
 import br.jus.trt23.nucleo.entities.EntidadeGenerica;
 import br.jus.trt23.webacesso.constants.Constantes;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -13,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -41,6 +43,7 @@ public class Flow extends EntidadeGenerica<Long> {
     private Short exibicaoOrdem;
 
     @ManyToMany(targetEntity = Papel.class)
+    @JoinTable(schema = Constantes.SCHEMA,name = "FLOW_PAPEL")
     private Set<Papel> papeis;
 
     @ManyToMany(targetEntity = Usuario.class)
@@ -58,9 +61,38 @@ public class Flow extends EntidadeGenerica<Long> {
         papeis = new HashSet();
         views = new HashSet();
     }
+    
+    public void addPapeis(Papel papel){
+        papeis.add(papel);
+        papel.getFlows().add(this);
+    }
 
+    public void addPapeis(Collection<Papel> papeis){
+        for(Papel p : papeis){
+            addPapeis(p);
+        }
+    }
+
+    public void removePapeis(Papel papel){
+        papeis.remove(papel);
+        papel.getFlows().remove(this);
+    }
+
+    public void removePapeis(Collection<Papel> papeis){
+        for(Papel p : papeis){
+            removePapeis(p);
+        }
+    }
+    
     @Override
     public String getNomeNatural() {
         return "Flow";
     }
+
+    @Override
+    public String toString() {
+        return getFlowId();
+    }
+    
+    
 }
