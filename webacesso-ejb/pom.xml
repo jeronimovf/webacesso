@@ -20,15 +20,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>webacesso2</artifactId>
+        <artifactId>webacesso</artifactId>
         <groupId>br.jus.trt23</groupId>
-        <version>2.0.0-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>webacesso2-ejb</artifactId>
+    <artifactId>webacesso-ejb</artifactId>
     <packaging>jar</packaging>
 
-    <name>Webacesso 2 EJB</name>
+    <name>Webacesso 1 EJB</name>
 
     <properties>
         <!-- Explicitly declaring the source encoding eliminates the following 
@@ -123,7 +123,7 @@
         
         <dependency>
             <groupId>br.jus.trt23</groupId>
-            <artifactId>nucleo2</artifactId>            
+            <artifactId>nucleo</artifactId>            
         </dependency>        
         
         <dependency>
@@ -136,14 +136,9 @@
             <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-            <version>6.0.17</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
             <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
         </dependency>
     </dependencies>
 
@@ -256,5 +251,5 @@
         </profile>
 
     </profiles>
-    <version>2.0.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
 </project>

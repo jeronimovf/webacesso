@@ -20,24 +20,24 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>webacesso2</artifactId>
+        <artifactId>webacesso</artifactId>
         <groupId>br.jus.trt23</groupId>
-        <version>2.0.0-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
 
-    <artifactId>webacesso2-web</artifactId>
+    <artifactId>webacesso-web</artifactId>
 
     <packaging>war</packaging>
 
-    <name>Webacesso 2 WEB</name>
+    <name>Webacesso 1 WEB</name>
 
     <properties>
         <!-- Explicitly declaring the source encoding eliminates the following 
         message: -->
         <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
         resources, i.e. build is platform dependent! -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
 
         <!-- JBoss dependency versions -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
@@ -59,19 +59,19 @@
     <dependencies>
         <dependency>
             <groupId>br.jus.trt23</groupId>
-            <artifactId>nucleo2</artifactId>
+            <artifactId>nucleo</artifactId>
         </dependency>
 
         <dependency>
             <groupId>br.jus.trt23</groupId>
-            <artifactId>view2</artifactId>
-            <version>2.0.0-SNAPSHOT</version>
+            <artifactId>view</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>br.jus.trt23</groupId>
-            <artifactId>webacesso2-ejb</artifactId>
-            <version>2.0.0-SNAPSHOT</version>
+            <artifactId>webacesso-ejb</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>        
 
         <!-- First declare the APIs we depend on and need for compilation. All 
@@ -203,6 +203,7 @@
         <dependency>
             <groupId>com.sun.faces</groupId>
             <artifactId>jsf-impl</artifactId>
+            <version>2.2.14</version>
             <type>jar</type>
         </dependency>
         <dependency>

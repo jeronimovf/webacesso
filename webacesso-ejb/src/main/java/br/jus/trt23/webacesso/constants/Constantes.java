@@ -10,5 +10,5 @@ package br.jus.trt23.webacesso.constants;
  * @author j129-9
  */
 public class Constantes {
-    public static final String SCHEMA = "webacesso2";
+    public static final String SCHEMA = "webacesso";
 }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pretty-config xmlns="http://ocpsoft.org/schema/rewrite-config-prettyfaces" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
+                      http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
+
+	<url-mapping id="funcionalidade">
+		<pattern value="/funcionalidade" />
+		<view-id value="/pages/funcionalidade/funcionalidade.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="perfil">
+		<pattern value="/perfil" />
+		<view-id value="/pages/perfil/perfil.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="permissao">
+		<pattern value="/permissao" />
+		<view-id value="/pages/permissao/permissao.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="sistema">
+		<pattern value="/sistema" />
+		<view-id value="/pages/sistema/sistema.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="usuario">
+		<pattern value="/usuario" />
+		<view-id value="/pages/usuario/usuario.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="unidadeSemGestor">
+		<pattern value="/unidadeSemGestor" />
+		<view-id value="/pages/gestor/unidadeSemGestor.xhtml" />
+	</url-mapping>
+	
+</pretty-config>

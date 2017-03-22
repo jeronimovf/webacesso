@@ -1,18 +1,34 @@
 package br.jus.trt23.webacesso.controllers;
 
+import br.jus.trt23.webacesso.entities.Funcionalidade;
+import br.jus.trt23.webacesso.util.ConfiguracaoAplicacao;
+import br.jus.trt23.webacesso.util.UsuarioSessao;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.inject.Model;
+import javax.enterprise.inject.spi.Bean;
+import javax.enterprise.inject.spi.BeanManager;
 import javax.faces.FacesException;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
+import lombok.Getter;
 
 @Model
 public class UtilController implements Serializable {
+
+    @Getter
+    @Inject
+    private UsuarioSessao usuarioSessao;
+
     @Inject
     private ConfiguracaoAplicacao configuracaoAplicacao;
 
@@ -33,7 +49,7 @@ public class UtilController implements Serializable {
 
     public void logout() throws IOException {
         FacesContext context = FacesContext.getCurrentInstance();
-        //usuarioSessao = null;
+        usuarioSessao = null;
         HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
         session.invalidate();
         redirect(configuracaoAplicacao.getUrlLogoutCAS());
@@ -46,4 +62,37 @@ public class UtilController implements Serializable {
             redirect("https://intranet.trt23.jus.br/");
         }
     }
+
+    public String selecionarPerfil() throws IOException {
+        usuarioSessao.setUnidade(null);
+        usuarioSessao.setPerfil(null);
+        usuarioSessao.setListaFuncionalidades(null);
+        return "selecionarPerfil";
+    }
+
+    public List<Funcionalidade> getListaFuncionalidades() {
+        return usuarioSessao.getListaFuncionalidades();
+    }
+    
+    public Boolean contemFuncionalidade(final String nome){
+        if(null == usuarioSessao.getListaFuncionalidades()){
+            return false;
+        }
+        Stream<Funcionalidade> stream =usuarioSessao.getListaFuncionalidades().stream();
+        List<Funcionalidade> funcionalidades = 
+                stream.filter(
+                        f -> f.getDescricao().equalsIgnoreCase(nome)
+                ).collect(Collectors.toList());
+        
+        return funcionalidades.size() == 1;
+    }
+    
+
+    //Esse método deve ser utilizado para as chamadas que não dispõe do
+    //gerenciamento de dependências do Weld (Ex. RevisionListener do Envers)
+    public UsuarioSessao lookupUsuarioSessaoBean() {
+            ExternalContext sc = FacesContext.getCurrentInstance().getExternalContext();     
+            Map<String,Object> sMap = sc.getSessionMap();
+            return (UsuarioSessao) sMap.get("usuarioSessao");
+    }    
 }

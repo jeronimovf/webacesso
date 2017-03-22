@@ -1,39 +1,40 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.jus.trt23.webacesso.sessions;
 
-import br.jus.trt23.nucleo.sessions.AbstractFacade;
+import br.jus.trt23.nucleo.session.AbstractFacadeComId;
 import br.jus.trt23.webacesso.entities.Sistema;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
-/**
- *
- * @author j129-9
- */
 @Stateless
-public class SistemaFacade extends AbstractFacade<Sistema> {
-    
-    @Inject
-    private EntityManager em;
+public class SistemaFacade extends AbstractFacadeComId<Sistema> {
 
     public SistemaFacade() {
         super(Sistema.class);
-    }    
+    }
 
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
+    private static final long serialVersionUID = 1L;
+
+    @SuppressWarnings("unchecked")
+    public List<Sistema> listarSistema() {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
+        Root<Sistema> c = cq.from(Sistema.class);
+        cq.select(c).where(
+                cb.lessThan(c.get("dataCadastro"), cb.currentDate()),
+                cb.or(
+                        cb.isNull((c.get("dataExcluido"))),
+                        cb.greaterThan(c.get("dataExcluido"), cb.currentDate())
+                )
+        ).orderBy(cb.asc(c.get("descricao"))).distinct(true);
+
+        return getEntityManager().createQuery(cq).getResultList();
     }
 
     @Override
     public List<Sistema> complete(String criteria) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }

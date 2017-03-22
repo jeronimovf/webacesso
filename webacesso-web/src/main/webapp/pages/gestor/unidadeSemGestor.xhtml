@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/template/crud.xhtml">
+		<ui:param name="action" value="#{unidadeSemGestorAction}"/>
+		<ui:param name="titulo" value="Cadastro de Gestor"/>
+
+		<ui:define name="listagem">
+			 <p:dataTable value="#{unidadeSemGestorAction.lista}" var="unidadeSemGestor" paginator="true" rows="10" 
+              					  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" paginatorPosition="top">	                        
+                <p:column width="40%" style="font-size: 12px;">		
+                   	<f:facet name="header"><p:outputLabel value="Unidade"/></f:facet>					       
+			        <p:outputLabel value="#{unidadeSemGestor.unidade.descricao}"/>
+			    </p:column>
+			    <p:column width="40%" style="font-size: 12px;">		
+                   	<f:facet name="header"><p:outputLabel value="Gestor"/></f:facet>					       
+			        <p:outputLabel value="#{unidadeSemGestor.usuario.nome}"/>
+			    </p:column>						    			   				  					   
+				 <p:column width="10%" style="font-size: 12px;">		
+                   	<f:facet name="header"><p:outputLabel value="Data Cadastro"/></f:facet>					       
+			        <p:outputLabel value="#{unidadeSemGestor.dataCadastro}"><f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="America/Cuiaba"/></p:outputLabel>
+			    </p:column>		
+			    <p:column width="10%" style="text-align: center; font-size: 12px;">
+			    	<f:facet name="header"><p:outputLabel value="Ação"/></f:facet>
+			        <p:commandButton actionListener="#{unidadeSemGestorAction.excluir(unidadeSemGestor)}" icon="ui-icon-close" update="@all" process="@all">
+				    	<p:confirm header="Confirmação" message="Excluir Vínculo de Cargo?" icon="ui-icon-alert" />
+				    </p:commandButton>                        
+			    </p:column>
+        	</p:dataTable>	                     		                     
+		</ui:define>
+		
+		<ui:define name="formulario">
+			<p:panelGrid>
+			    <f:facet name="header">
+			    	<p:row><p:column colspan="2">#{titulo}</p:column></p:row>
+			    </f:facet>			 				   		    	
+
+				<p:row>
+			    	<p:column style="text-align: right;">    					
+	       				<p:outputLabel value="Unidade:"/> 
+			    	</p:column>	
+			    	<p:column>
+			    		<p:autoComplete minQueryLength="2" value="#{unidadeSemGestorAction.unidadeSemGestor.unidade}" var="unidade" size="60"
+        					itemLabel="#{unidade.descricao}" itemValue="#{unidade}" converter="entidadeConverter" queryDelay="500"
+        					completeMethod="#{unidadeSemGestorAction.autoCompleteUnidade}" effect="fade" required="true"/>
+			    	</p:column>			   			    	    			   
+				</p:row>
+				
+				<p:row>
+			    	<p:column style="text-align: right;">    					
+	       				<p:outputLabel value="Gestor:"/> 
+			    	</p:column>	
+			    	<p:column>
+			    		<p:autoComplete minQueryLength="2" value="#{unidadeSemGestorAction.unidadeSemGestor.usuario}" var="usuario" size="60"
+        					itemLabel="#{usuario.loginNome}" itemValue="#{usuario}" converter="entidadeConverter" queryDelay="500"
+        					completeMethod="#{unidadeSemGestorAction.autoCompleteUsuario}" effect="fade" required="true"/>
+			    	</p:column>			   			    	    			   
+				</p:row>
+			</p:panelGrid>	
+			<br/>
+		</ui:define>
+	        
+	</ui:composition>	    
+</html>

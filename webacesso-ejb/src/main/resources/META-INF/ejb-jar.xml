@@ -7,6 +7,6 @@
         http://xmlns.jcp.org/xml/ns/javaee 
         http://xmlns.jcp.org/xml/ns/javaee/ejb-jar_3_2.xsd">
     
-  <module-name>webacesso2-ejb</module-name>
+  <module-name>webacesso-ejb</module-name>
   
 </ejb-jar>
