@@ -184,7 +184,7 @@ public class SistemaController extends AbstractController<Sistema> {
     }
     
     private void consistePapelFlow(){
-        Set<Flow> destinationDisjoint = ceFlow.getDestinationCollection().
+        //Set<Flow> destinationDisjoint = ceFlow.getDestinationCollection().
         for(Flow f : (Set<Flow>)ceFlow.getDestinationCollection()){
             f.addPapeis(papelNovo);
         }
